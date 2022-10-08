@@ -17,4 +17,4 @@ jobs:
           sudo install -Dvm755 jenkins-bridge-client -t /usr/bin/
           
       - uses: actions/checkout@v2
-      - run: bash ".github/workflows/backup-all-repos-to-gitlabwh.bash" linuxdeepin ${{ secrets.BRIDGETOKEN }}
+      - run: bash ".github/workflows/backup-all-repos-to-gitlabwh.bash" deepin-community ${{ secrets.BRIDGETOKEN }}
