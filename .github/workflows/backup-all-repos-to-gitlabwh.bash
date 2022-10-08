@@ -1,7 +1,8 @@
 #!/bin/bash
 owner=$1
 token=$2
-rm repos_*.json || true
+
+echo "::group::Get Repo List"
 while true;do
 	let page++
 	sleep 1
@@ -12,11 +13,17 @@ while true;do
       		break
   	fi
 done
+echo "::endgroup::"
+
+
 for repo in $(cat repos_*.json | jq '.[] | .name '| xargs -i echo {});do
 	echo $repo
+	
+	echo "::group::Sync${repo}"
 	export GITHUB_REPOSITORY_OWNER=$owner
 	export GITHUB_REPOSITORY=$owner/$repo
 	id=$(jenkins-bridge-client triggerSync --token $token)
 	jenkins-bridge-client printLog --token $token --runid $id
+	echo "::endgroup::"
 	exit 0
 done
