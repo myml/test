@@ -17,4 +17,5 @@ for repo in $(cat repos_*.json | jq '.[] | .name '| xargs -i echo {});do
 	export GITHUB_REPOSITORY_OWNER=$owner
 	export GITHUB_REPOSITORY=$owner/$repo
 	jenkins-bridge-client triggerSync --token $token
+	exit 0;
 done
