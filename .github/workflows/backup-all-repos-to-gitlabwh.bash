@@ -24,5 +24,4 @@ for repo in $(cat repos_*.json | jq '.[] | .name '| xargs -i echo {});do
 	id=$(jenkins-bridge-client triggerSync --token $token)
 	jenkins-bridge-client printLog --token $token --runid $id
 	echo "::endgroup::"
-	exit 0
 done
