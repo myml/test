@@ -6,16 +6,5 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Get all repo
-        run: |
-          owner=linuxdeepin
-          while true;do
-            let page++
-            sleep 1
-            wget "https://api.github.com/users/$owner/repos?per_page=100&page=$page" -O repos_$page.json
-            n=`cat repos_$page.json | jq '.[]|.full_name' | wc -l`
-            echo $n
-            if [ "x$n" != "x100" ]; then
-                    break
-              fi
-          done
+      - uses: actions/checkout@v2
+      - run: bash ".github/workflows/backup-all-repos-to-gitlabwh.bash" linuxdeepin
