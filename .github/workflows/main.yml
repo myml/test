@@ -9,7 +9,6 @@ jobs:
       - name: Get all repo
         run: |
           owner=linuxdeepin
-          rm repos_*.json || true
           while true;do
             let page++
             sleep 1
