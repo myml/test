@@ -17,9 +17,8 @@ echo "::endgroup::"
 
 
 for repo in $(cat repos_*.json | jq '.[] | .name '| xargs -i echo {});do
-	echo $repo
-	
 	echo "::group::Sync${repo}"
+	echo $repo
 	export GITHUB_REPOSITORY_OWNER=$owner
 	export GITHUB_REPOSITORY=$owner/$repo
 	id=$(jenkins-bridge-client triggerSync --token $token)
