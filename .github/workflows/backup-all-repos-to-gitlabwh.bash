@@ -1,5 +1,6 @@
 #!/bin/bash
 owner=$1
+token=$2
 rm repos_*.json || true
 while true;do
 	let page++
@@ -13,4 +14,7 @@ while true;do
 done
 for repo in $(cat repos_*.json | jq '.[] | .name '| xargs -i echo {});do
 	echo $repo
+	export GITHUB_REPOSITORY_OWNER=$owner
+	export GITHUB_REPOSITORY=$repo
+	jenkins-bridge-client triggerSync --token $token
 done
