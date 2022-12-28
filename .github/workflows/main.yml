@@ -1,6 +1,10 @@
 name: CI
 on:
   workflow_dispatch:
+    inputs:
+      tag:
+        required: true
+        type: string
 
 jobs:
   build:
@@ -8,5 +12,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: echo v0.0.2
+      - run: echo ${{ inputs.config-path }}
       - run: git log
       - run: git tag
